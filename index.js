@@ -2,11 +2,9 @@ const fs = require('fs');
 const url = require('url');
 const net = require('net');
 const cluster = require('cluster');
-const chalk = require('chalk');
-const gradient = require('gradient-string');
 
 if (process.argv.length <= 3) {
-    console.log("node spike.js <url> <threads> <time>");
+    console.log("node index.js <url> <threads> <time>");
     process.exit(-1);
 }
 var target = process.argv[2];
@@ -25,7 +23,7 @@ let userAgents = [];
 try {
     userAgents = fs.readFileSync('ua.txt', 'utf8').split('\n');
 } catch (err) {
-    console.error('\x1b[31mDSTATKurang file ua.txt blok\n' + err);
+    console.error('\x1b[31mKurang file ua.txt blok\n' + err);
     process.exit(-1);
 }
 
@@ -41,8 +39,7 @@ if (cluster.isMaster) {
         cluster.fork();
     }
     console.clear();
-const asciiArt = `
-⠀⠀⠀⠀⠀⠀⣀⣤⣶⣿⠷⠾⠛⠛⠛⠛⠷⠶⢶⣶⣤⣄⡀⠀⠀⠀⠀⠀⠀
+    console.log(`\x1b[32m⣀⣤⣶⣿⠷⠾⠛⠛⠛⠛⠷⠶⢶⣶⣤⣄⡀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⣀⣴⡾⠛⠉⠁⠀⣰⡶⠶⠶⠶⠶⠶⣶⡄⠀⠉⠛⠿⣷⣄⡀⠀⠀⠀
 ⠀⠀⣠⣾⠟⠁⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⣼⠃⠀⠀⠀⠀⠈⠛⢿⣦⡀⠀
 ⢠⣼⠟⠁⠀⠀⠀⠀⣠⣴⣶⣿⡇⠀⠀⠀⠀⠀⣿⣷⣦⣄⠀⠀⠀⠀⠀⠙⣧⡀
@@ -54,12 +51,7 @@ const asciiArt = `
 ⠀⠀⠀⠀⠀⠈⠻⢿⣿⣿⣿⣿⣿⠟⠛⠛⠻⣿⣿⣿⣿⣿⡿⠛⠉⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⣿⡇⠀⠀⠀⠀⢸⣿⡏⠙⠋⠁⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣷⣄⠀⠀⣀⣾⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-`;
-
-const gradientColors = gradient('cyan', 'green', 'yellow');
-
-console.log(gradientColors.multiline(asciiArt));
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣿⣏ \x1b[0m pawretirend flood`);
     setTimeout(() => {
         process.exit(1);
     }, time * 1000);
